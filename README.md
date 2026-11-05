@@ -102,8 +102,10 @@ the analogy deliberately stops there, same as in our [RTX 3060 log](https://gith
 No unlock needed or possible (Volta has no GeForce half-rate gate — tensor is full rate stock;
 measured in №008-И after №008 had to be corrected (published before the run finished):
 fp16→fp32 median **90.75 TF/s** (73–78% of the 125 spec; ×1.86 our unlocked 3060). `COMPUTE_16F`
-accepted on Volta, closing the rc-15 gap the 3060 runbook left open. FP32/BF16 arms: never
-measured — a harness buffer-sizing bug, logged honestly in the correction entry. No BF16/INT8 tensor, no CUDA 13, no DeepSeek V4.1-Flash class packs —
+accepted on Volta, closing the rc-15 gap the 3060 runbook left open. FP32/BF16 completed after the harness fix
+(№010): FP32 pedantic 13.69 TF/s (87% of spec); BF16 accepted on sm_70 but **emulated at 9.78
+TF/s** — slower than FP32, no native tensor path — which numbers-out why the engine converts
+BF16→FP16 on Volta (`STRATA_BF16_TC`). No BF16/INT8 tensor, no CUDA 13, no DeepSeek V4.1-Flash class packs —
 Volta support is security-only to ~2028, and this log documents the tail end honestly.
 
 ## License
@@ -128,7 +130,7 @@ Ubuntu 22.04, 5600G, 96 ГБ RAM 3200. Правила журнала: append-onl
 Неудачи, вошедшие в журнал: 595 не знает Volta; cuda12-движка нет на GitHub-релизах (есть в фиде);
 setup перекачивает модель (лечится `--gguf-dir`); сервис-наследие резал карту до 187 Вт; первое
 посаживание адаптера — линк ×1 (decode падал до 47.5); ручные правки конфигов затираются runtime'ом
-(канал `user_args`); плюс операторские ошибки без купюр. Иглы 26.5K/106K/200.8K × глубины 10/50/90 — **9/9** (№003–№004), полный контекст 262,144 закрыт; кривая fresh-read prefill 1560→1364→1271 tok/s. Якорь декода (№005, n=4, idle): **70.4/68.6/63.4 tok/s** на 4.5K/35K/139K; короткий рукав — шум спекуляции, не якорится. A/B `PF_WMMA` (№006): −0.1% prefill, decode в шуме — обещанных +10% не приехало, тумблер остаётся выключен. GEMM (№008-И, корректировка к поспешной №008): **90.75 TF/s** медиана fp16→fp32 (×1.86 против нашей разблокированной 3060); COMPUTE_16F принят — зазор runbook закрыт реальным прогоном; FP32/BF16 не дошли — баг харнеса.
+(канал `user_args`); плюс операторские ошибки без купюр. Иглы 26.5K/106K/200.8K × глубины 10/50/90 — **9/9** (№003–№004), полный контекст 262,144 закрыт; кривая fresh-read prefill 1560→1364→1271 tok/s. Якорь декода (№005, n=4, idle): **70.4/68.6/63.4 tok/s** на 4.5K/35K/139K; короткий рукав — шум спекуляции, не якорится. A/B `PF_WMMA` (№006): −0.1% prefill, decode в шуме — обещанных +10% не приехало, тумблер остаётся выключен. GEMM (№008-И, корректировка к поспешной №008): **90.75 TF/s** медиана fp16→fp32 (×1.86 против нашей разблокированной 3060); COMPUTE_16F принят — зазор runbook закрыт реальным прогоном; FP32/BF16 домерены после ремонта харнеса (№010): FP32 13.69, BF16 принят, но эмуляция 9.78 TF/s — медленнее FP32; нативного BF16 нет, обоснован конверт движка в FP16.
 
 Память настроена по мотивам DeepInfer (сам он на Volta не запускается — SM100/CUDA13): трёхслойный кэш разговоров (чекпойнты в VRAM → парковка 12 слотов/16 ГиБ в RAM → дисковые сессии SAVE/RESTORE), KV int8-стриминг с 97.9–99% попаданий в VRAM, детерминированные замеры. Маппинг «практика DeepInfer → наша настройка → цифра» — в разделе «Memory structure: the DeepInfer practices» выше.
 

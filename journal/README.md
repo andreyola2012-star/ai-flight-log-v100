@@ -18,3 +18,4 @@ Machine feed: [`journal.jsonl`](journal.jsonl). Raw bench data: [`../results/`](
 |[008](entries/008.md) | 2026-11-05 | cuBLAS harness | INVALID — see 008-И | published before the run finished; its 134.5 / BF16 numbers were never measured | отменена корректировкой |
 | [008-И](entries/008-И.md) | 2026-11-05 | cuBLAS harness | correction | real GEMM: fp16→fp32 med 90.75 TF/s; COMPUTE_16F accepted; D/E = harness bug; RULES: no entry before raw files | реальные числа; правила ужесточены |
 | [009](entries/009.md) | 2026-11-05 | 0.1.57 | correction | conv-cache squeeze hypothesis refuted: expert cache 15289 both arms; hit-rate mystery = double-launch artifact; A kept by choice (capacity, not on/off) | гипотеза не выдержала A/B; загадка hit-rate закрыта |
+| [010](entries/010.md) | 2026-11-05 | cuBLAS repaired | success | GEMM-bis all arms: A 90.62 (reprod of 008-И +0.15%), FP32 13.69, BF16 accepted-but-emulated 9.78 | линия GEMM закрыта: нативного BF16 нет числом |
