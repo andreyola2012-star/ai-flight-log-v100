@@ -1,4 +1,4 @@
-# §1 · Tesla V100 SXM2 32 GB (Volta, sm_70) — Strata
+# AI Flight Log — Tesla V100 SXM2 32 GB (Volta, sm_70)
 
 Measured on 2026-11-05 by **ildargiv**, ongoing. Third card in the fleet line:
 [rtx3060-strata-tuning](https://github.com/ildargiv/rtx3060-strata-tuning) →
