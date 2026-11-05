@@ -53,8 +53,9 @@ Our RTX 3060 (unlocked fast config): prefill 684–745 → ~1.9–2.3×, decode 
 the quality-suspect prior.
 
 **№001 first pass (n=1, nonce):** prefill 998/1535/1633 tok/s at 1.7K/8.4K/25K tokens, decode
-75.5–81.1; dialogue continuation reused 47,218/47,265 prompt tokens (TTFT 2 s at 47K). Needle
-sweep (32k/128k/262k × depths 10/50/90, `tools/needle_bench.py`): running — lands as №003.
+75.5–81.1; dialogue continuation reused 47,218/47,265 prompt tokens (TTFT 2 s at 47K). Needle sweep
+(`tools/needle_bench.py`, 32k/128k × depths 10/50/90): **6/6 found**; 262k skipped (label exceeds
+the 262,144 context) — entry №003.
 
 ## Gotchas (the failures, in order — each one is an entry with repro steps)
 
@@ -97,8 +98,8 @@ Ubuntu 22.04, 5600G, 96 ГБ RAM 3200. Правила журнала: append-onl
 Неудачи, вошедшие в журнал: 595 не знает Volta; cuda12-движка нет на GitHub-релизах (есть в фиде);
 setup перекачивает модель (лечится `--gguf-dir`); сервис-наследие резал карту до 187 Вт; первое
 посаживание адаптера — линк ×1 (decode падал до 47.5); ручные правки конфигов затираются runtime'ом
-(канал `user_args`); плюс операторские ошибки без купюр. igla 32k/128k/262k × глубины 10/50/90 —
-доедет записью №003.
+(канал `user_args`); плюс операторские ошибки без купюр. Иглы 32k/128k × глубины 10/50/90 —
+**6/6** (262k пропущено: метка больше контекста; запись №003).
 
 Подписка: Watch → Releases, каждый выпуск = запись журнала. Мини-статьи для постов:
 [`outreach/`](outreach/).

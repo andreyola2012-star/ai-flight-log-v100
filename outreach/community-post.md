@@ -26,7 +26,8 @@ release, experiments as separate entries, corrections only as new entries. If yo
 desktop, or you're deciding whether Volta's security-support tail (to ~2028) is worth riding,
 watch the releases — each one is an entry.
 
-Repo: **<REPO_URL>** · Needle sweep (32k/128k/262k × depths) lands as entry №003.
+Repo: **<REPO_URL>** · Needle sweep 32k/128k × depths 10/50/90: **6/6 found** (entry №003;
+the depth-90 arm turned out prefix-reused, so only fresh-read arms feed the anchor line).
 
 ---
 
@@ -49,4 +50,4 @@ Volta; cuda12-движок, отсутствующий на GitHub-релиза�
 Правила: append-only (исправления — новые записи), якорная линия замеряется на каждый стабильный
 релиз движка. Подписывайтесь на Releases — каждый выпуск = запись. Если у вас V100 в ящике или вы
 думаете, стоит ли оседлать хвост поддержки Volta (security-обновления до ~2028) —
-**<REPO_URL>**, иглы 32k/128k/262k доедут записью №003.
+**<REPO_URL>**, иглы 32k/128k × глубины 10/50/90 — 6/6 (запись №003).
