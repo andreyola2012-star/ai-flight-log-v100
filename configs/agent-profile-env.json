@@ -1,0 +1,8 @@
+{
+  "_note": "env-объект агентского профиля (lan-open) после №013; канал доставки — config env, применяется при fresh start (restart-migration НОВЫЕ ключи не подхватывает — см. RULES #9)",
+  "STRATA_SM70_TABLE": "1",
+  "STRATA_FUSE_DECODE": "1",
+  "STRATA_ARGMAX_ROWS_SM70": "1",
+  "STRATA_GR_NORM_FAST": "1",
+  "STRATA_PF_WMMA": "1"
+}
