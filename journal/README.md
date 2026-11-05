@@ -11,3 +11,4 @@ next step). Append-only — corrections are new entries, see [`../RULES.md`](../
 | [003](entries/003.md) | 2026-11-05 | 0.1.57 | bench/success | needle 32k/128k × depths 10/50/90: 6/6 FOUND; fresh-read prefill 1560/1364 tok/s; depth-90 arm is prefix-contaminated, 10%-only for the anchor | иглы 6/6, в якорь идут только 10% рукава |
 
 Machine feed: [`journal.jsonl`](journal.jsonl). Raw bench data: [`../results/`](../results/).
+| [004](entries/004.md) | 2026-11-05 | 0.1.57 | bench/success | needle 200,852 tokens x depths 10/50/90: 3/3; anchor prefill curve 1560/1364/1271 tok/s | полная контекстная линия 26.5K/106K/201K закрыта |

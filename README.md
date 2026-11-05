@@ -53,9 +53,10 @@ Our RTX 3060 (unlocked fast config): prefill 684–745 → ~1.9–2.3×, decode 
 the quality-suspect prior.
 
 **№001 first pass (n=1, nonce):** prefill 998/1535/1633 tok/s at 1.7K/8.4K/25K tokens, decode
-75.5–81.1; dialogue continuation reused 47,218/47,265 prompt tokens (TTFT 2 s at 47K). Needle sweep
-(`tools/needle_bench.py`, 32k/128k × depths 10/50/90): **6/6 found**; 262k skipped (label exceeds
-the 262,144 context) — entry №003.
+75.5–81.1; dialogue continuation reused 47,218/47,265 prompt tokens (TTFT 2 s at 47K). Needle
+(`tools/needle_bench.py`): **9/9 found** across 26.5K/106K/200.8K actual prompt tokens × depths
+10/50/90 (entries №003–№004; the 200K arm closed the model's full 262,144 context). Anchor fresh-read
+prefill curve: **1,560 → 1,364 → 1,271 tok/s** at 26.5K/106K/201K — flat tail, no cliff.
 
 ## Gotchas (the failures, in order — each one is an entry with repro steps)
 
