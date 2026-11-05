@@ -58,6 +58,25 @@ the quality-suspect prior.
 10/50/90 (entries №003–№004; the 200K arm closed the model's full 262,144 context). Anchor fresh-read
 prefill curve: **1,560 → 1,364 → 1,271 tok/s** at 26.5K/106K/201K — flat tail, no cliff.
 
+## Memory structure: the DeepInfer practices, measured here
+
+We do not run DeepInfer itself — it targets SM100/Ascend 950 and CUDA 13, none of which Volta can
+even execute. But its feature list is a good checklist of what inference memory really consists
+of, and every item it names has a Strata counterpart we configured and measured on this card
+(entries №002–№004 cite the raw data):
+
+| DeepInfer practice | Strata counterpart on this machine | What we actually measured |
+| --- | --- | --- |
+| External KV-cache system (not in their release) | three-tier engine-side cache: `--prompt-cache 12` VRAM checkpoints → conversation-cache 12 slots / 16 GiB RAM parking → `SAVE/RESTORE` disk sessions (`--session-save-reclaim`) | dialogue continuation re-read **47 of 47,265** tokens (TTFT 2 s); evictions after tuning: 19→0 |
+| KV management (resident window + streaming) | `--kv int8 --kv-resident 32768`, KV streaming | engine reports **97.9–99.0%** of KV block reads hit VRAM while holding 200K-token sessions in RAM |
+| MoE expert placement (EP + EPLB) | `--expert-cache auto` (11,857 experts resident, ~19.25 GiB), no `ROUTE_PRIOR` (that was the 12 GB card's compensation) | hit 66–75% live vs community 95%+ — open item №005+, calibrate for the 5600G host |
+| Confidence-scheduled verification | dflash2 drafting, `--spec 6 --draft-conf 0.8` | drafts accepted, e.g. 98/122; decode 72–91 tok/s in standard-v1 |
+| Asynchronous scheduling / batch-invariance | sm_70 build paths: #540 attention, `prompt_attn_v70` (`mma.m8n8k4`), bit-exact `SM70_TABLE`+`FUSE_DECODE`+`ARGMAX_ROWS`+`GR_NORM` | fresh-read prefill curve 1,560→1,364→1,271 tok/s (26.5K/106K/201K), answers bit-stable at defaults |
+| Deterministic measurement | greedy, engine-own timings, nonce prompts, `0 reused` on fresh arms | sanity 12/12, 21/21 protocol requests |
+
+What has no single-GPU desktop equivalent: prefill/decode disaggregation and DP load balancing —
+the analogy deliberately stops there, same as in our [RTX 3060 log](https://github.com/ildargiv/rtx3060-strata-tuning).
+
 ## Gotchas (the failures, in order — each one is an entry with repro steps)
 
 1. Driver 595-open: Volta simply not supported (branch + open-module), `nvidia-smi` dead on arrival.
@@ -99,8 +118,9 @@ Ubuntu 22.04, 5600G, 96 ГБ RAM 3200. Правила журнала: append-onl
 Неудачи, вошедшие в журнал: 595 не знает Volta; cuda12-движка нет на GitHub-релизах (есть в фиде);
 setup перекачивает модель (лечится `--gguf-dir`); сервис-наследие резал карту до 187 Вт; первое
 посаживание адаптера — линк ×1 (decode падал до 47.5); ручные правки конфигов затираются runtime'ом
-(канал `user_args`); плюс операторские ошибки без купюр. Иглы 32k/128k × глубины 10/50/90 —
-**6/6** (262k пропущено: метка больше контекста; запись №003).
+(канал `user_args`); плюс операторские ошибки без купюр. Иглы 26.5K/106K/200.8K × глубины 10/50/90 — **9/9** (№003–№004), полный контекст 262,144 закрыт; кривая fresh-read prefill 1560→1364→1271 tok/s.
+
+Память настроена по мотивам DeepInfer (сам он на Volta не запускается — SM100/CUDA13): трёхслойный кэш разговоров (чекпойнты в VRAM → парковка 12 слотов/16 ГиБ в RAM → дисковые сессии SAVE/RESTORE), KV int8-стриминг с 97.9–99% попаданий в VRAM, детерминированные замеры. Маппинг «практика DeepInfer → наша настройка → цифра» — в разделе «Memory structure: the DeepInfer practices» выше.
 
 Подписка: Watch → Releases, каждый выпуск = запись журнала. Мини-статьи для постов:
 [`outreach/`](outreach/).
