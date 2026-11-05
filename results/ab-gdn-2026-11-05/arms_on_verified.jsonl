@@ -1,0 +1,5 @@
+# warm-up discarded {"arm": "on-verified", "rep": 0, "prompt": 60, "reused": 0, "prefill": 115.7, "decode": 39.4}
+{"arm": "on-verified", "rep": 1, "prompt": 33485, "reused": 0, "prefill": 1678.9, "decode": 70.5}
+{"arm": "on-verified", "rep": 2, "prompt": 33487, "reused": 0, "prefill": 1581.6, "decode": 75.4}
+{"arm": "on-verified", "rep": 3, "prompt": 33388, "reused": 0, "prefill": 1536.9, "decode": 85.7}
+{"arm": "on-verified", "rep": 4, "prompt": 33585, "reused": 0, "prefill": 1526.1, "decode": 75.0}

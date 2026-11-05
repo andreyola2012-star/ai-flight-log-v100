@@ -1,0 +1,4 @@
+{"arm": "pf-verified", "rep": 1, "prompt": 33236, "reused": 0, "prefill": 1772.3, "decode": 78.3}
+{"arm": "pf-verified", "rep": 2, "prompt": 33503, "reused": 0, "prefill": 1721.5, "decode": 75.7}
+{"arm": "pf-verified", "rep": 3, "prompt": 33630, "reused": 0, "prefill": 1680.5, "decode": 74.3}
+{"arm": "pf-verified", "rep": 4, "prompt": 33349, "reused": 0, "prefill": 1663.4, "decode": 75.1}
