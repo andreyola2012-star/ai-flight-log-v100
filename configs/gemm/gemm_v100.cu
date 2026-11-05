@@ -25,6 +25,11 @@ int main(int argc, char** argv) {
     CK(cudaMalloc(&dA, nn * 2)); CK(cudaMalloc(&dB, nn * 2));
     CK(cudaMalloc(&dC32, nn * 4)); CK(cudaMalloc(&dC16, nn * 2));
     CK(cudaMemset(dA, 0x3c, nn * 2)); CK(cudaMemset(dB, 0x3c, nn * 2));
+    // №010 repair: SGEMM needs true fp32-sized buffers (the 008-И bug: it read 4B/elt
+    // from 2B/elt allocations -> illegal access -> sticky context death -> E "refused" too)
+    float *dAf, *dBf, *dCf;
+    CK(cudaMalloc(&dAf, nn * 4)); CK(cudaMalloc(&dBf, nn * 4)); CK(cudaMalloc(&dCf, nn * 4));
+    CK(cudaMemset(dAf, 0x3f, nn * 4)); CK(cudaMemset(dBf, 0x3f, nn * 4));
     float f32 = 1.f, fzero = 0.f;
 
     auto run = [&](const char* label, auto body) -> void {
@@ -67,10 +72,10 @@ int main(int argc, char** argv) {
             dA, CUDA_R_16F, N, dB, CUDA_R_16F, N, &h0,
             dC16, CUDA_R_16F, N, CUBLAS_COMPUTE_16F, CUBLAS_GEMM_DEFAULT) != CUBLAS_STATUS_SUCCESS; });
 
-    // D) fp32 pedantic control
+    // D) fp32 pedantic control — на честных fp32-буферах (ремонт №010)
     run("D. FP32 pedantic", [&]{
         return cublasSgemm(h, CUBLAS_OP_N, CUBLAS_OP_N, N, N, N, &f32,
-            (const float*)dA, N, (const float*)dB, N, &fzero, (float*)dC32, N) != CUBLAS_STATUS_SUCCESS; });
+            dAf, N, dBf, N, &fzero, dCf, N) != CUBLAS_STATUS_SUCCESS; });
 
     // E) bf16 attempt on sm_70 (expect refusal; record)
     run("E. BF16 in, FP32 accum", [&]{

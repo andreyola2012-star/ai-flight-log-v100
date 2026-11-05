@@ -4,7 +4,8 @@
 # during each run; three repetitions; server never running alongside.
 set -e
 D=$(dirname "$0")
-LOG=~/Документы/Проект\ по\ умолчанию/ai-flight-log-v100/results/gemm
+LOG=${GEMM_LOG:-~/Документы/Проект\ по\ умолчанию/ai-flight-log-v100/results/gemm}
+LOG=$(eval echo "$LOG")
 mkdir -p "$LOG"
 
 # safety: refuse to start if an engine is alive
