@@ -1,0 +1,182 @@
+{
+  "applicable": true,
+  "body_sha256": "5f009900ba7f582aea5f58ae2ef8a7cadd83f3b921e03c3977e0db43b7b1ebbd",
+  "created_at": 1793908658.8087795,
+  "identity": {
+    "backend": null,
+    "engine_sha256": "6ad0bfcc07fec7f456771dd9fc676428e71de1af6a94c0d54488dce808c4355a",
+    "gpu": 0,
+    "hardware_key": "Tesla V100-SXM2-32GB|32GB|AMD Ryzen 5 5600G with Radeon Graphics|90GB|qwen3.8-flash-next-iq3_xxs|262144|images",
+    "model_integrity": "metadata_only_unverified",
+    "model_name": "qwen3.8-flash-next-iq3_xxs",
+    "profile_id": "launch-lan-open",
+    "profile_revision": "afbf07f1bfd05fb8",
+    "required_file_metadata": [
+      {
+        "modified_ns": 1793876298102870413,
+        "name": "tokenizer/vocab.json",
+        "path": "/home/<user>/packs/iq3_xxs/tokenizer/vocab.json",
+        "size": 5737005
+      },
+      {
+        "modified_ns": 1793876298184870176,
+        "name": "tokenizer/merges.txt",
+        "path": "/home/<user>/packs/iq3_xxs/tokenizer/merges.txt",
+        "size": 3353258
+      },
+      {
+        "modified_ns": 1793876298195870144,
+        "name": "tokenizer/token_type.json",
+        "path": "/home/<user>/packs/iq3_xxs/tokenizer/token_type.json",
+        "size": 744960
+      },
+      {
+        "modified_ns": 1793270956647038700,
+        "name": "native",
+        "path": "/home/<user>/models/strata/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+        "size": 47039860096
+      },
+      {
+        "modified_ns": 1793267578990817800,
+        "name": "ple-gguf",
+        "path": "/home/<user>/models/strata/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf",
+        "size": 28800138432
+      },
+      {
+        "modified_ns": 1793892922636635293,
+        "name": "expert-profile",
+        "path": "/home/<user>/.local/share/strata/components/control/0.1.57/data/expert-profile.bin",
+        "size": 196632
+      },
+      {
+        "modified_ns": 1793892896010662659,
+        "name": "vision/exe",
+        "path": "/home/<user>/.local/share/strata/components/engine/0.1.57-linux-x86_64-cuda-cuda12/strata-vision",
+        "size": 155431720
+      },
+      {
+        "modified_ns": 1793878699738129869,
+        "name": "vision/mmproj",
+        "path": "/home/<user>/models/mmproj-Qwen3.8-Flash-Next-BF16.gguf",
+        "size": 907543008
+      },
+      {
+        "modified_ns": 1793270956647038700,
+        "name": "vision/model",
+        "path": "/home/<user>/models/strata/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+        "size": 47039860096
+      }
+    ],
+    "source_sha256": "71435529e29ac68cb1e769f432eb78854af32faa473ca986270228c657c29dfb",
+    "suite_sha256": "6b2ef58ed18f0b625256cd613058edebd375868cd05e7974b22838cf72edf40b"
+  },
+  "kind": "strata.engine.calibration",
+  "measurements": {
+    "adapt": {
+      "1/160/0.97": [
+        84.79532163742691,
+        85.42974465474111
+      ],
+      "1/80/0.97": [
+        84.69646555134142,
+        86.66323136740527
+      ],
+      "default": [
+        86.18474833586359,
+        85.23991288668243
+      ]
+    },
+    "confirm": {
+      "0.35/0.5": [
+        88.54454897620366,
+        89.4042047915066,
+        88.38558210191961
+      ],
+      "0.75/0.3": [
+        86.9742474689135,
+        87.74335069920484,
+        88.04512312560188
+      ]
+    },
+    "default": {
+      "pcie_frac": 0.35,
+      "pool_workers": 5,
+      "spec_min_p": 0.5
+    },
+    "min_p_sweep": {
+      "0.3": [
+        89.42294257370406,
+        89.04347826086956,
+        88.49557522123894
+      ],
+      "0.5": [
+        88.26977449831047,
+        87.9604178119846,
+        88.52005532503458
+      ],
+      "0.7": [
+        89.17996237720337,
+        87.40781207320403,
+        87.96646278606282
+      ]
+    },
+    "pcie_sweep": {
+      "0.0": [
+        88.32459287882969,
+        88.1542699724518,
+        90.94784709393207
+      ],
+      "0.2": [
+        88.74098724348308,
+        90.4018645384561,
+        88.96302474284127
+      ],
+      "0.35": [
+        89.42919024662893,
+        88.36727649292372,
+        89.6798150353815
+      ],
+      "0.55": [
+        87.38990919642247,
+        89.75527662856743,
+        93.34208415372275
+      ],
+      "0.75": [
+        89.80565494983512,
+        86.60937817173016,
+        89.89395322705245
+      ],
+      "0.9": [
+        88.06329549363605,
+        88.26368776720452,
+        87.59923350670681
+      ],
+      "1.0": [
+        85.52148059063272,
+        85.59010364426612,
+        87.02746804460159
+      ]
+    },
+    "seconds": 703,
+    "tok_s": 85.7,
+    "workers": {
+      "2": [
+        84.43828748598192,
+        89.14890653294331
+      ],
+      "3": [
+        85.77938614126793,
+        89.41044984632579
+      ],
+      "5": [
+        85.18000931656351,
+        89.61075329039484
+      ]
+    }
+  },
+  "report_id": "1cbde1b429834694981080d5a096dc82",
+  "schema_version": 1,
+  "settings": {},
+  "source_config": "/home/<user>/.local/state/strata/launch/lan-open.json",
+  "suite": "legacy-decode-v1"
+}
