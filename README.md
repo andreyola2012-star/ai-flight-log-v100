@@ -76,7 +76,7 @@ of, and every item it names has a Strata counterpart we configured and measured 
 | --- | --- | --- |
 | External KV-cache system (not in their release) | three-tier engine-side cache: `--prompt-cache 12` VRAM checkpoints → conversation-cache 12 slots / 16 GiB RAM parking → `SAVE/RESTORE` disk sessions (`--session-save-reclaim`) | dialogue continuation re-read **47 of 47,265** tokens (TTFT 2 s); evictions after tuning: 19→0 |
 | KV management (resident window + streaming) | `--kv int8 --kv-resident 32768`, KV streaming | engine reports **97.9–99.0%** of KV block reads hit VRAM while holding 200K-token sessions in RAM |
-| MoE expert placement (EP + EPLB) | `--expert-cache auto` (11,857 experts resident, ~19.25 GiB), no `ROUTE_PRIOR` (that was the 12 GB card's compensation) | hit 66–75% live vs community 95%+ — open item №005+, calibrate for the 5600G host |
+| MoE expert placement (EP + EPLB) | `--expert-cache auto` (11,857 experts resident, ~19.25 GiB), no `ROUTE_PRIOR` (that was the 12 GB card's compensation) | hit on a clean single instance: 93–98% (№009; the early 66–75% readings were the documented double-launch race, no squeeze from the conversation cache) |
 | Confidence-scheduled verification | dflash2 drafting, `--spec 6 --draft-conf 0.8` | drafts accepted, e.g. 98/122; decode 72–91 tok/s in standard-v1 |
 | Asynchronous scheduling / batch-invariance | sm_70 build paths: #540 attention, `prompt_attn_v70` (`mma.m8n8k4`), bit-exact `SM70_TABLE`+`FUSE_DECODE`+`ARGMAX_ROWS`+`GR_NORM` | fresh-read prefill curve 1,560→1,364→1,271 tok/s (26.5K/106K/201K), answers bit-stable at defaults |
 | Deterministic measurement | greedy, engine-own timings, nonce prompts, `0 reused` on fresh arms | sanity 12/12, 21/21 protocol requests |
