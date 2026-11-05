@@ -6,9 +6,9 @@ Measured on 2026-11-05 by **ildargiv**, ongoing. Third card in the fleet line:
 
 This repo is a **flight log**, not a one-shot benchmark: dated entries, append-only, and a failed
 measurement is a first-class entry with the same rank as a passing one. Rules:
-[`journal/RULES.md`](journal/RULES.md), template: [`journal/TEMPLATE.md`](journal/TEMPLATE.md),
+[[`RULES.md`](RULES.md), template: [[`TEMPLATE.md`](TEMPLATE.md),
 index + machine-readable feed: [`journal/README.md`](journal/README.md) /
-[`journal/journal.jsonl`](journal/journal.jsonl). Anchor line (comparable over time): one V100
+[[`journal/feed.jsonl`](journal/feed.jsonl). Anchor line (comparable over time): one V100
 SXM2-32GB, Qwen3.8-Flash-Next IQ3_XXS, 262,144 context, `--kv int8`, bit-exact sm_70 switches on.
 
 ## Hardware and software
