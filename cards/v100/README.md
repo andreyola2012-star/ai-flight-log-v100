@@ -6,9 +6,9 @@ Measured on 2026-11-05 by **ildargiv**, ongoing. Third card in the fleet line:
 
 This repo is a **flight log**, not a one-shot benchmark: dated entries, append-only, and a failed
 measurement is a first-class entry with the same rank as a passing one. Rules:
-[`journal/RULES.md`](../journal/RULES.md), template: [`journal/TEMPLATE.md`](../journal/TEMPLATE.md),
-index + machine-readable feed: [`journal/README.md`](../journal/README.md) /
-[`journal/journal.jsonl`](../journal/journal.jsonl). Anchor line (comparable over time): one V100
+[`journal/RULES.md`](journal/RULES.md), template: [`journal/TEMPLATE.md`](journal/TEMPLATE.md),
+index + machine-readable feed: [`journal/README.md`](journal/README.md) /
+[`journal/journal.jsonl`](journal/journal.jsonl). Anchor line (comparable over time): one V100
 SXM2-32GB, Qwen3.8-Flash-Next IQ3_XXS, 262,144 context, `--kv int8`, bit-exact sm_70 switches on.
 
 ## Hardware and software
@@ -29,7 +29,7 @@ drafting, context 262144, `--kv int8 --kv-resident 32768`, expert-cache auto (~1
 11,857 experts), conversation cache 12 slots / 16 GiB (`user_args`), env:
 `STRATA_SM70_TABLE=1 STRATA_FUSE_DECODE=1 STRATA_ARGMAX_ROWS_SM70=1 STRATA_GR_NORM_FAST=1`
 (all bit-exact per `docs/NVIDIA_V100.md`). No `STRATA_ROUTE_PRIOR` (3060-era compensation).
-Full snippets: [`configs/`](../configs/).
+Full snippets: [`configs/`](configs/).
 
 ## Method
 
@@ -47,7 +47,7 @@ after model load; idle server):
 | prompt-16k | 1,584 (1558–1656) | 71.9 (71.7–75.1) | 10.37 |
 | short | n/a per protocol | 90.8 (83.0–93.5) | 0.71 |
 
-Raw: [`results/2026-11-05-standard-v100-sxm2-r1/`](../results/2026-11-05-standard-v100-sxm2-r1/).
+Raw: [`results/2026-11-05-standard-v100-sxm2-r1/`](results/2026-11-05-standard-v100-sxm2-r1/).
 Community V100-32GB corridor (other hosts): prefill 1127–1633, decode 54–77 — we sit at its top.
 Our RTX 3060 (unlocked fast config): prefill 684–745 → ~1.9–2.3×, decode 61 → 1.18–1.48× without
 the quality-suspect prior.
@@ -102,4 +102,4 @@ setup перекачивает модель (лечится `--gguf-dir`); се�
 **6/6** (262k пропущено: метка больше контекста; запись №003).
 
 Подписка: Watch → Releases, каждый выпуск = запись журнала. Мини-статьи для постов:
-[`outreach/`](../outreach/).
+[`outreach/`](outreach/).

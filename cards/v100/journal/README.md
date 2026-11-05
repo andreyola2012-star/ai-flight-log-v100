@@ -2,7 +2,7 @@
 
 Index of dated entries. Language policy: root README is EN-first with a RU duplicate; entries are
 written in the operator's language with an EN one-liner here (full RU→EN dubbing per entry is the
-next step). Append-only — corrections are new entries, see [`RULES.md`](RULES.md).
+next step). Append-only — corrections are new entries, see [`../../RULES.md`](../../RULES.md).
 
 | № | Date | Engine | Class | EN one-liner | RU |
 | --- | --- | --- | --- | --- | --- |
