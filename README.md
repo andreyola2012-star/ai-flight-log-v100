@@ -61,6 +61,9 @@ prefill curve: **1,560 → 1,364 → 1,271 tok/s** at 26.5K/106K/201K — flat t
 tokens; prefill plateau 1,417–1,554 re-confirmed on independent nonces; the ~1.2K short arm
 (105.5 ±20) is spec-acceptance noise and is explicitly *not* anchorable. Vs our unlocked 3060:
 +10% decode at 139K without ROUTE_PRIOR, prefill ×2.3 at 35K.
+**№006 paired A/B `PF_WMMA`: −0.1% prefill, decode noise (n=4, offset-nonce arm)** — the
+documented +10% did not survive to this engine/host; the switch is not bit-exact and has no
+gain here, so the stock stays on bit-exact sm_70 switches only.
 
 ## Memory structure: the DeepInfer practices, measured here
 
@@ -122,7 +125,7 @@ Ubuntu 22.04, 5600G, 96 ГБ RAM 3200. Правила журнала: append-onl
 Неудачи, вошедшие в журнал: 595 не знает Volta; cuda12-движка нет на GitHub-релизах (есть в фиде);
 setup перекачивает модель (лечится `--gguf-dir`); сервис-наследие резал карту до 187 Вт; первое
 посаживание адаптера — линк ×1 (decode падал до 47.5); ручные правки конфигов затираются runtime'ом
-(канал `user_args`); плюс операторские ошибки без купюр. Иглы 26.5K/106K/200.8K × глубины 10/50/90 — **9/9** (№003–№004), полный контекст 262,144 закрыт; кривая fresh-read prefill 1560→1364→1271 tok/s. Якорь декода (№005, n=4, idle): **70.4/68.6/63.4 tok/s** на 4.5K/35K/139K; короткий рукав — шум спекуляции, не якорится.
+(канал `user_args`); плюс операторские ошибки без купюр. Иглы 26.5K/106K/200.8K × глубины 10/50/90 — **9/9** (№003–№004), полный контекст 262,144 закрыт; кривая fresh-read prefill 1560→1364→1271 tok/s. Якорь декода (№005, n=4, idle): **70.4/68.6/63.4 tok/s** на 4.5K/35K/139K; короткий рукав — шум спекуляции, не якорится. A/B `PF_WMMA` (№006): −0.1% prefill, decode в шуме — обещанных +10% не приехало, тумблер остаётся выключен.
 
 Память настроена по мотивам DeepInfer (сам он на Volta не запускается — SM100/CUDA13): трёхслойный кэш разговоров (чекпойнты в VRAM → парковка 12 слотов/16 ГиБ в RAM → дисковые сессии SAVE/RESTORE), KV int8-стриминг с 97.9–99% попаданий в VRAM, детерминированные замеры. Маппинг «практика DeepInfer → наша настройка → цифра» — в разделе «Memory structure: the DeepInfer practices» выше.
 

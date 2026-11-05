@@ -13,3 +13,4 @@ next step). Append-only — corrections are new entries, see [`../RULES.md`](../
 Machine feed: [`journal.jsonl`](journal.jsonl). Raw bench data: [`../results/`](../results/).
 | [004](entries/004.md) | 2026-11-05 | 0.1.57 | bench/success | needle 200,852 tokens x depths 10/50/90: 3/3; anchor prefill curve 1560/1364/1271 tok/s | полная контекстная линия 26.5K/106K/201K закрыта |
 | [005](entries/005.md) | 2026-11-05 | 0.1.57 | bench/success | decode anchor n=4 idle: 70.4/68.6/63.4 tok/s at 4.5K/35K/139K (short arm not anchorable, spec-acceptance noise 73-114); prefill plateau re-confirmed | якорь декода зафиксирован, короткий рукав — шум спекуляции |
+| [006](entries/006.md) | 2026-11-05 | 0.1.57 | failure-expected | paired A/B PF_WMMA: -0.1
