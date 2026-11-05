@@ -67,6 +67,12 @@ Verified retest (direct launch, environ proof): **PF_WMMA = +9.4% prefill** (170
 13/16 pairs), matching community's +10%. It is not bit-exact, so adoption waits for a quality A/B;
 the anchor stays stock. `GDN_REC_WARP` (+0.3%, №011, properly verified) is genuinely below noise.
 
+**№013 quality A/B of `PF_WMMA`** (fresh-load batteries, environ-proofed arms): 20/20 × 20/20 on an
+auto-checked task battery; answers sha-identical 19/20, the single diff being JSON whitespace that
+also appears within the stock arm itself — zero substantive divergences. Direction of the speed gain
+reproduced (+6–24% fresh long-task prefill). Adopted for the agent profile; the release anchor stays
+stock until a long-agentic quality diff (candidate №014).
+
 ## Memory structure: the DeepInfer practices, measured here
 
 We do not run DeepInfer itself — it targets SM100/Ascend 950 and CUDA 13, none of which Volta can
@@ -132,7 +138,7 @@ Ubuntu 22.04, 5600G, 96 ГБ RAM 3200. Правила журнала: append-onl
 Неудачи, вошедшие в журнал: 595 не знает Volta; cuda12-движка нет на GitHub-релизах (есть в фиде);
 setup перекачивает модель (лечится `--gguf-dir`); сервис-наследие резал карту до 187 Вт; первое
 посаживание адаптера — линк ×1 (decode падал до 47.5); ручные правки конфигов затираются runtime'ом
-(канал `user_args`); плюс операторские ошибки без купюр. Иглы 26.5K/106K/200.8K × глубины 10/50/90 — **9/9** (№003–№004), полный контекст 262,144 закрыт; кривая fresh-read prefill 1560→1364→1271 tok/s. Якорь декода (№005, n=4, idle): **70.4/68.6/63.4 tok/s** на 4.5K/35K/139K; короткий рукав — шум спекуляции, не якорится. A/B `PF_WMMA` (№006→№012): первый тест был невалиден (тумблер не попадал в движок); верифицированный перезамер даёт **+9.4%** prefill — обещание community подтвердилось; adoption на паузе до quality-A/B, якорь остаётся stock. `GDN_REC_WARP` (№011): +0.3% — действительно под шумом. GEMM (№008-И, корректировка к поспешной №008): **90.75 TF/s** медиана fp16→fp32 (×1.86 против нашей разблокированной 3060); COMPUTE_16F принят — зазор runbook закрыт реальным прогоном; FP32/BF16 домерены после ремонта харнеса (№010): FP32 13.69, BF16 принят, но эмуляция 9.78 TF/s — медленнее FP32; нативного BF16 нет, обоснован конверт движка в FP16.
+(канал `user_args`); плюс операторские ошибки без купюр. Иглы 26.5K/106K/200.8K × глубины 10/50/90 — **9/9** (№003–№004), полный контекст 262,144 закрыт; кривая fresh-read prefill 1560→1364→1271 tok/s. Якорь декода (№005, n=4, idle): **70.4/68.6/63.4 tok/s** на 4.5K/35K/139K; короткий рукав — шум спекуляции, не якорится. A/B `PF_WMMA` (№006→№012): первый тест был невалиден (тумблер не попадал в движок); верифицированный перезамер даёт **+9.4%** prefill — обещание community подтвердилось; adoption на паузе до quality-A/B, якорь остаётся stock. `GDN_REC_WARP` (№011): +0.3% — действительно под шумом. Quality-A/B `PF_WMMA` (№013): батареи 20/20 против 20/20, ответы совпадают (единственная разница — пробел в JSON, тот же класс флуктуации живёт и внутри stock), скорость подтвердила направление; тумблер включён в агентский профиль, якорь релизов остаётся stock. GEMM (№008-И, корректировка к поспешной №008): **90.75 TF/s** медиана fp16→fp32 (×1.86 против нашей разблокированной 3060); COMPUTE_16F принят — зазор runbook закрыт реальным прогоном; FP32/BF16 домерены после ремонта харнеса (№010): FP32 13.69, BF16 принят, но эмуляция 9.78 TF/s — медленнее FP32; нативного BF16 нет, обоснован конверт движка в FP16.
 
 Память настроена по мотивам DeepInfer (сам он на Volta не запускается — SM100/CUDA13): трёхслойный кэш разговоров (чекпойнты в VRAM → парковка 12 слотов/16 ГиБ в RAM → дисковые сессии SAVE/RESTORE), KV int8-стриминг с 97.9–99% попаданий в VRAM, детерминированные замеры. Маппинг «практика DeepInfer → наша настройка → цифра» — в разделе «Memory structure: the DeepInfer practices» выше.
 

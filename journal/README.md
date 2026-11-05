@@ -21,3 +21,4 @@ Machine feed: [`journal.jsonl`](journal.jsonl). Raw bench data: [`../results/`](
 | [010](entries/010.md) | 2026-11-05 | cuBLAS repaired | success | GEMM-bis all arms: A 90.62 (reprod of 008-И +0.15%), FP32 13.69, BF16 accepted-but-emulated 9.78 | линия GEMM закрыта: нативного BF16 нет числом |
 | [011](entries/011.md) | 2026-11-05 | 0.1.57 | success | verified GDN A/B: +0.3% prefill = under noise; stays off | GDN на целом промпте невидим; выключен |
 | [012](entries/012.md) | 2026-11-05 | 0.1.57 | correction | №006 invalidated (toggle never applied); verified PF_WMMA = +9.4% prefill; adoption awaits quality A/B; RULES #9 | переворот: тумблер работает, не применялся |
+| [013](entries/013.md) | 2026-11-06 | 0.1.57 | success | PF_WMMA quality battery: 20/20 both arms, 0 substantive answer diffs (1 whitespace, also intra-stock), speed reproduced; adopt in agent profile, anchor stays stock | батарея чистая: качество не изменилось |
