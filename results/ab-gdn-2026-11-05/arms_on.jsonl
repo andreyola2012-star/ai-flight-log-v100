@@ -1,0 +1,4 @@
+{"arm": "on", "rep": 1, "prompt": 33447, "reused": 0, "prefill": 1668.9, "decode": 70.0}
+{"arm": "on", "rep": 2, "prompt": 33490, "reused": 0, "prefill": 1577.2, "decode": 71.4}
+{"arm": "on", "rep": 3, "prompt": 33169, "reused": 0, "prefill": 1545.5, "decode": 74.2}
+{"arm": "on", "rep": 4, "prompt": 33339, "reused": 0, "prefill": 1534.7, "decode": 73.2}

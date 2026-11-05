@@ -1,0 +1,4 @@
+{"arm": "baseline", "rep": 1, "prompt": 33458, "reused": 0, "prefill": 1677.5, "decode": 68.8}
+{"arm": "baseline", "rep": 2, "prompt": 33389, "reused": 0, "prefill": 1567.3, "decode": 71.3}
+{"arm": "baseline", "rep": 3, "prompt": 33538, "reused": 0, "prefill": 1542.0, "decode": 69.2}
+{"arm": "baseline", "rep": 4, "prompt": 33479, "reused": 0, "prefill": 1533.8, "decode": 72.9}
