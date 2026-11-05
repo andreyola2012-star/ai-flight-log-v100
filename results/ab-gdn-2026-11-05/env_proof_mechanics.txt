@@ -1,0 +1,6 @@
+## Механика env-пропагации (разбор для №011)
+
+- движок в environ принимает ТОЛЬКО имена с префиксом STRATA_; мой set_env писал 'GDN_REC_WARP' — движок такой ключ не читает (не «не прокинулся», а «не тем именем»);
+- процесс движка называется strata-host (не strata) — все проверки по pgrep 'strata --serve' / -x strata давали ложный ABSENT (или ловили bash -c с тем же текстом в cmdline — самоловушка grep);
+- канал «экспорт перед запуском» работает: direct nohup run-iq3_xxs.sh с STRATA_GDN_REC_WARP=2 даёт ключ в /proc/<strata-host>/environ;
+- канал preset-extra -> runtime restart НЕ переносит env (пара2 это и показала: stage[on] был stock); канал config.env -> start срабатывает (SM70 в живом движке оттуда).
