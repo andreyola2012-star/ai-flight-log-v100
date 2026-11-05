@@ -100,7 +100,9 @@ the analogy deliberately stops there, same as in our [RTX 3060 log](https://gith
 ## What this card is not
 
 No unlock needed or possible (Volta has no GeForce half-rate gate — tensor is full rate stock;
-mma_rate proof pending). No BF16/INT8 tensor, no CUDA 13, no DeepSeek V4.1-Flash class packs —
+proven in №008: 134.5 TF/s fp16→fp32 across three runs; `COMPUTE_16F` accepted on Volta, closing
+the rc-15 gap the 3060 runbook left open; BF16 accepted by cuBLAS only via a 113.7 TF/s
+emulation path, not native hardware). No BF16/INT8 tensor, no CUDA 13, no DeepSeek V4.1-Flash class packs —
 Volta support is security-only to ~2028, and this log documents the tail end honestly.
 
 ## License
@@ -125,7 +127,7 @@ Ubuntu 22.04, 5600G, 96 ГБ RAM 3200. Правила журнала: append-onl
 Неудачи, вошедшие в журнал: 595 не знает Volta; cuda12-движка нет на GitHub-релизах (есть в фиде);
 setup перекачивает модель (лечится `--gguf-dir`); сервис-наследие резал карту до 187 Вт; первое
 посаживание адаптера — линк ×1 (decode падал до 47.5); ручные правки конфигов затираются runtime'ом
-(канал `user_args`); плюс операторские ошибки без купюр. Иглы 26.5K/106K/200.8K × глубины 10/50/90 — **9/9** (№003–№004), полный контекст 262,144 закрыт; кривая fresh-read prefill 1560→1364→1271 tok/s. Якорь декода (№005, n=4, idle): **70.4/68.6/63.4 tok/s** на 4.5K/35K/139K; короткий рукав — шум спекуляции, не якорится. A/B `PF_WMMA` (№006): −0.1% prefill, decode в шуме — обещанных +10% не приехало, тумблер остаётся выключен.
+(канал `user_args`); плюс операторские ошибки без купюр. Иглы 26.5K/106K/200.8K × глубины 10/50/90 — **9/9** (№003–№004), полный контекст 262,144 закрыт; кривая fresh-read prefill 1560→1364→1271 tok/s. Якорь декода (№005, n=4, idle): **70.4/68.6/63.4 tok/s** на 4.5K/35K/139K; короткий рукав — шум спекуляции, не якорится. A/B `PF_WMMA` (№006): −0.1% prefill, decode в шуме — обещанных +10% не приехало, тумблер остаётся выключен. GEMM (№008): **134.5 TF/s** fp16→fp32 — полная ставка без всяких разблокировок; COMPUTE_16F принят (зазор runbook закрыт).
 
 Память настроена по мотивам DeepInfer (сам он на Volta не запускается — SM100/CUDA13): трёхслойный кэш разговоров (чекпойнты в VRAM → парковка 12 слотов/16 ГиБ в RAM → дисковые сессии SAVE/RESTORE), KV int8-стриминг с 97.9–99% попаданий в VRAM, детерминированные замеры. Маппинг «практика DeepInfer → наша настройка → цифра» — в разделе «Memory structure: the DeepInfer practices» выше.
 

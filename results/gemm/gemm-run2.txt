@@ -1,0 +1,5 @@
+A. FP16 in, FP32 accum       :    89.81 TF/s  (9900 iters, 15.1s)
+B. FP16 in, FP16 out         :    92.24 TF/s  (10100 iters, 15.0s)
+C. COMPUTE_16F explicit      :    92.61 TF/s  (10200 iters, 15.1s)
+D. FP32 pedantic             : refused/failed (rc above)
+E. BF16 in, FP32 accum       : refused/failed (rc above)
